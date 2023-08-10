@@ -1,22 +1,12 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url 'https://plugins.gradle.org/m2/' }
-    }
-}
-
 plugins {
-    id 'java'
-    id 'org.jetbrains.intellij' version '0.7.3'
+    id("java")
+//    id("org.jetbrains.kotlin.jvm") version "1.8.22"
+    id("org.jetbrains.intellij") version "1.14.1"
 }
 
-java {
-    sourceCompatibility JavaVersion.VERSION_11
-    targetCompatibility JavaVersion.VERSION_11
-}
 
 group 'com.sgota.plugin.idea'
-version '2.0.0'
+version '2.0.1'
 
 repositories {
     mavenCentral()
@@ -29,12 +19,14 @@ dependencies {
 
 intellij {
     plugins = ['java']
-    version = '2021.1.3'
-    type 'IU'
-    sandboxDirectory System.getProperty("user.home") + "/idea-plugins-sandbox"
+    version.set("2023.2")
+    type.set("IC") // Target IDE Platform
     updateSinceUntilBuild = false
     downloadSources = true
 }
+
+
+
 
 runIde {
     autoReloadPlugins = true

@@ -23,19 +23,19 @@ import java.util.regex.Pattern;
  */
 public class JavaDocTemplateService {
 
+    private final VelocityEngine velocityEngine;
     private Map<String, Template> classTemplateCache = new LinkedHashMap<>();
     private Map<String, Template> fieldTemplateCache = new LinkedHashMap<>();
     private Map<String, Template> methodTemplateCache = new LinkedHashMap<>();
     private Map<String, Template> constructorTemplateCache = new LinkedHashMap<>();
 
-    private final VelocityEngine velocityEngine;
-
     public JavaDocTemplateService() {
         Properties properties = new Properties();
         properties.put("input.encoding", "UTF-8");
         properties.put("output.encoding", "UTF-8");
-        properties.put("resource.loader", "string");
-        properties.put("string.resource.loader.repository.class", "com.sgota.plugin.idea.javadoc2.service.MyStringResourceRepository");
+        properties.put("resource.loaders", "string");
+        properties.put("resource.loader.string.class", StringResourceLoader.class.getName());
+        properties.put("resource.loader.string.repository.class", MyStringResourceRepository.class.getName());
         velocityEngine = new VelocityEngine(properties);
         ClassLoaderUtil.runWithClassLoader(JavaDocTemplateService.class.getClassLoader(), () -> velocityEngine.init());
     }
